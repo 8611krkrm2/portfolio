@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="山﨑滉平へのお問い合わせページ。撮影のご依頼・ご相談はこちらからお気軽にどうぞ。">
+  <title>contact | kohei yamasaki</title>
+  <style>
+    @font-face {
+      font-family: 'MidashiGo-MB31';
+      src: url('fonts/MidashiGo-MB31.otf') format('opentype');
+      font-weight: bold; font-style: normal; font-display: swap;
+    }
+    @font-face {
+      font-family: 'FuturaKY';
+      src: url('fonts/FuturaMedium.otf') format('opentype');
+      font-weight: 400; font-style: normal; font-display: swap;
+    }
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --black: #111111; --gray: #888; --bg: #fafaf8;
+      --font-midashi: 'MidashiGo-MB31', 'A-OTF 見出ゴMB31 Pr6N', sans-serif;
+      --font-sans: 'FuturaKY', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    }
+    body { background: var(--bg); color: var(--black); font-family: var(--font-sans); }
+    a { text-decoration: none; color: inherit; }
+    a:hover { opacity: 0.6; }
+
+    /* HEADER */
+    header {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+      display: flex; justify-content: space-between; align-items: center;
+      padding: 20px 32px;
+      background: rgba(250,250,248,0.92);
+      backdrop-filter: blur(8px);
+      border-bottom: 1px solid rgba(0,0,0,0.06);
+    }
+    .site-name {
+      font-family: var(--font-sans);
+      font-size: 13px;
+      letter-spacing: 0.1em;
+    }
+    .back-link {
+      font-family: var(--font-sans);
+      font-size: 11px;
+      letter-spacing: 0.15em;
+      color: var(--gray);
+      text-transform: uppercase;
+    }
+
+    /* LAYOUT */
+    .contact-wrap {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 120px 32px 120px;
+      display: grid;
+      grid-template-columns: 200px 1fr;
+      gap: 0 80px;
+    }
+
+    /* LEFT: TITLE */
+    .contact-title {
+      padding-top: 4px;
+    }
+    .contact-title h1 {
+      font-family: var(--font-sans);
+      font-size: clamp(18px, 2vw, 24px);
+      font-weight: 500;
+      letter-spacing: 0.08em;
+    }
+
+    /* RIGHT: CONTENT */
+    .contact-body {
+      display: flex;
+      flex-direction: column;
+      gap: 40px;
+    }
+
+    .contact-desc {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+    .contact-desc p {
+      font-family: var(--font-midashi);
+      font-size: clamp(12px, 1.2vw, 14px);
+      line-height: 1.8;
+      color: #444;
+    }
+
+    /* FORM */
+    form {
+      display: flex;
+      flex-direction: column;
+      gap: 0;
+    }
+    .required-note {
+      font-family: var(--font-midashi);
+      font-size: 12px;
+      color: #444;
+      margin-bottom: 32px;
+    }
+    .required-note span { color: #c00; }
+
+    .form-row {
+      display: grid;
+      grid-template-columns: 180px 1fr;
+      align-items: center;
+      border-top: 1px solid #e0e0e0;
+      padding: 20px 0;
+      gap: 24px;
+    }
+    .form-row:last-of-type {
+      border-bottom: 1px solid #e0e0e0;
+    }
+    .form-label {
+      font-family: var(--font-midashi);
+      font-size: 13px;
+      color: var(--black);
+    }
+    .form-label .req { color: #c00; margin-left: 4px; }
+
+    input[type="text"],
+    input[type="email"],
+    input[type="tel"],
+    textarea {
+      width: 100%;
+      background: #f0f0ec;
+      border: none;
+      outline: none;
+      padding: 12px 16px;
+      font-family: var(--font-midashi);
+      font-size: 13px;
+      color: var(--black);
+      border-radius: 2px;
+      transition: background 0.2s;
+    }
+    input[type="text"]:focus,
+    input[type="email"]:focus,
+    input[type="tel"]:focus,
+    textarea:focus {
+      background: #e8e8e2;
+    }
+    textarea {
+      resize: vertical;
+      min-height: 160px;
+      line-height: 1.7;
+    }
+
+    .form-submit {
+      margin-top: 40px;
+      display: flex;
+      justify-content: center;
+    }
+    button[type="submit"] {
+      font-family: var(--font-sans);
+      font-size: 12px;
+      letter-spacing: 0.15em;
+      color: var(--bg);
+      background: var(--black);
+      border: none;
+      padding: 16px 64px;
+      cursor: pointer;
+      transition: opacity 0.2s;
+    }
+    button[type="submit"]:hover { opacity: 0.7; }
+
+    @media (max-width: 768px) {
+      .contact-wrap {
+        grid-template-columns: 1fr;
+        padding: 100px 20px 80px;
+        gap: 32px;
+      }
+      .form-row {
+        grid-template-columns: 1fr;
+        gap: 8px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <a href="index.html" class="site-name">kohei yamasaki</a>
+    <a href="index.html" class="back-link">← Back</a>
+  </header>
+
+  <div class="contact-wrap">
+
+    <div class="contact-title">
+      <h1>contact</h1>
+    </div>
+
+    <div class="contact-body">
+      <div class="contact-desc">
+        <p>撮影などに関するメールでのお問い合わせ・ご相談は下記のフォームにご記入下さい。</p>
+        <p>内容を確認後、お電話やメールにてお返事させていただきます。</p>
+        <p>メールの確認作業に時間を要する場合がございますので、ご了承ください。</p>
+        <p>メールフォームでのお問い合わせの際はプライバシーポリシーに同意した上でお問い合わせいただくようよろしくお願いいたします。</p>
+      </div>
+
+      <form action="https://formsubmit.co/8611krkrm2@gmail.com" method="POST">
+        <input type="hidden" name="_subject" value="お問い合わせ - kohei yamasaki">
+        <input type="hidden" name="_next" value="contact.html">
+        <input type="hidden" name="_captcha" value="false">
+
+        <p class="required-note"><span>*</span>が付いた項目は必ずご入力ください。</p>
+
+        <div class="form-row">
+          <label class="form-label" for="company">会社名</label>
+          <input type="text" id="company" name="会社名">
+        </div>
+        <div class="form-row">
+          <label class="form-label" for="name">お名前 <span class="req">*</span></label>
+          <input type="text" id="name" name="お名前" required>
+        </div>
+        <div class="form-row">
+          <label class="form-label" for="name_kana">お名前（ふりがな） <span class="req">*</span></label>
+          <input type="text" id="name_kana" name="お名前（ふりがな）" required>
+        </div>
+        <div class="form-row">
+          <label class="form-label" for="tel">電話番号</label>
+          <input type="tel" id="tel" name="電話番号">
+        </div>
+        <div class="form-row">
+          <label class="form-label" for="email">メールアドレス <span class="req">*</span></label>
+          <input type="email" id="email" name="メールアドレス" required>
+        </div>
+        <div class="form-row">
+          <label class="form-label" for="email_confirm">メールアドレス（確認） <span class="req">*</span></label>
+          <input type="email" id="email_confirm" name="メールアドレス（確認）" required>
+        </div>
+        <div class="form-row">
+          <label class="form-label" for="message">お問い合わせ内容 <span class="req">*</span></label>
+          <textarea id="message" name="お問い合わせ内容" required></textarea>
+        </div>
+
+        <div class="form-submit">
+          <button type="submit">SEND</button>
+        </div>
+      </form>
+    </div>
+
+  </div>
+
+</body>
+</html>

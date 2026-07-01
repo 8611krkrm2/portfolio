@@ -1,0 +1,674 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="大分を拠点に活動するフォトグラファー・ビデオグラファー 山﨑滉平のポートフォリオサイト。ブランディング・料理・ウエディング・人物など幅広いジャンルの撮影に対応。">
+  <title>kohei yamasaki | photographer</title>
+  <style>
+    @font-face {
+      font-family: 'MidashiGo-MB31';
+      src: url('fonts/MidashiGo-MB31.otf') format('opentype');
+      font-weight: bold;
+      font-style: normal;
+      font-display: swap;
+    }
+
+    @font-face {
+      font-family: 'FuturaKY';
+      src: url('fonts/FuturaMedium.otf') format('opentype');
+      font-weight: normal;
+      font-style: normal;
+      font-display: swap;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --white: #ffffff;
+      --white-dim: rgba(255,255,255,0.7);
+      --black: #111111;
+      --gray: #888;
+      --bg: #fafaf8;
+      --font-midashi: 'MidashiGo-MB31', 'A-OTF 見出ゴMB31 Pr6N', sans-serif;
+      --font-serif: 'FuturaKY', 'Helvetica Neue', Helvetica, sans-serif;
+      --font-sans: 'FuturaKY', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    }
+
+    html { scroll-behavior: smooth; }
+    body { background: var(--bg); color: var(--black); font-family: var(--font-sans); }
+    a { text-decoration: none; color: inherit; }
+    a:hover { opacity: 0.5; }
+    img { display: block; width: 100%; }
+
+    /* ════════════════════════════════════════
+       HERO
+    ════════════════════════════════════════ */
+    .hero-wrap {
+      position: relative;
+      width: 100%;
+      height: 100svh;
+      overflow: hidden;
+    }
+
+    .hero-wrap .slide {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center center;
+      opacity: 0;
+      transition: opacity 0.8s ease;
+    }
+    .hero-wrap .slide.active { opacity: 1; }
+
+    /* overlay */
+    .hero-wrap::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(to bottom,
+        rgba(0,0,0,0.12) 0%,
+        rgba(0,0,0,0.02) 45%,
+        rgba(0,0,0,0.22) 100%);
+      pointer-events: none;
+    }
+
+    /* UI layer */
+    .hero-ui {
+      position: absolute;
+      inset: 0;
+      z-index: 10;
+      color: var(--white);
+    }
+
+    /* top bar */
+    .top-bar {
+      display: flex;
+      justify-content: space-between;
+      padding: 20px 24px;
+      font-family: var(--font-sans);
+      font-size: 10px;
+      letter-spacing: 0.05em;
+    }
+
+    /* left nav */
+    .nav-left {
+      position: absolute;
+      left: 24px;
+      top: 36%;
+      transform: translateY(-50%);
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+    .nav-left a, .nav-left span {
+      font-family: var(--font-sans);
+      font-size: 12px;
+      letter-spacing: 0.07em;
+      color: var(--white);
+    }
+    .nav-left .divider { color: var(--white-dim); }
+    .nav-left .ig { display: flex; align-items: center; }
+    .nav-left .ig svg { width: 13px; height: 13px; }
+
+    /* works submenu */
+    .nav-works-toggle { cursor: pointer; }
+    .nav-works-wrap {
+      display: flex;
+      flex-direction: column;
+      gap: 0;
+    }
+    .nav-works-sub {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      padding-left: 10px;
+      max-height: 0;
+      overflow: hidden;
+      opacity: 0;
+      padding-top: 0;
+      transition: max-height 0.5s ease, opacity 0.4s ease, padding-top 0.3s ease;
+    }
+    .nav-works-sub.open {
+      max-height: 300px;
+      opacity: 1;
+      padding-top: 8px;
+    }
+    .nav-works-sub a {
+      font-size: 10px;
+      color: var(--white-dim);
+      letter-spacing: 0.1em;
+    }
+
+    /* bottom left */
+    .hero-title {
+      position: absolute;
+      bottom: 8%;
+      left: 24px;
+    }
+    .hero-title h1 {
+      font-family: var(--font-midashi);
+      font-size: clamp(36px, 5.5vw, 72px);
+      font-weight: bold;
+      line-height: 1.15;
+      letter-spacing: 0.03em;
+      color: var(--white);
+    }
+    .hero-title .sub {
+      font-family: var(--font-sans);
+      font-size: 11px;
+      letter-spacing: 0.08em;
+      color: var(--white-dim);
+      margin-top: 6px;
+    }
+
+    /* bottom right copyright */
+    .hero-copy {
+      position: absolute;
+      bottom: 32px;
+      right: 20px;
+      writing-mode: vertical-rl;
+      font-family: var(--font-sans);
+      font-size: 9px;
+      letter-spacing: 0.08em;
+      color: var(--white-dim);
+    }
+
+    /* ════════════════════════════════════════
+       SERVICES
+    ════════════════════════════════════════ */
+    .services {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+    }
+
+    .service-item {
+      position: relative;
+      overflow: hidden;
+      aspect-ratio: 3 / 4;
+      background: #333;
+    }
+
+    .service-item img,
+    .service-item video {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 0.5s ease;
+    }
+
+    /* wide item spans full width */
+    .service-item.wide {
+      grid-column: 1 / -1;
+      aspect-ratio: 16 / 9;
+    }
+    .service-item:hover img { transform: scale(1.03); }
+
+    .movie-play {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      z-index: 3;
+      width: clamp(48px, 8vw, 72px);
+      opacity: 0.85;
+    }
+    .movie-play svg { width: 100%; height: auto; }
+
+    .service-item::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: rgba(0,0,0,0.08);
+    }
+
+    .service-label {
+      position: absolute;
+      inset: 0;
+      z-index: 2;
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      justify-content: flex-end;
+      color: var(--white);
+      text-align: left;
+      padding: 24px;
+    }
+    .service-label .en-ghost {
+      display: none;
+    }
+    .service-label .en {
+      font-family: var(--font-serif);
+      font-size: clamp(18px, 3vw, 36px);
+      font-weight: 400;
+      letter-spacing: 0.18em;
+    }
+    .service-label .bar {
+      width: 24px;
+      height: 1px;
+      background: var(--white);
+      margin: 10px 0;
+    }
+    .service-label .ja {
+      font-family: var(--font-sans);
+      font-size: clamp(10px, 1.5vw, 13px);
+      letter-spacing: 0.2em;
+    }
+
+    /* ════════════════════════════════════════
+       ABOUT
+    ════════════════════════════════════════ */
+    .about {
+      padding: clamp(100px, 15vw, 200px) clamp(24px, 6vw, 80px);
+      max-width: 800px;
+      margin: 0 auto;
+    }
+
+    .about h2 {
+      font-family: var(--font-midashi);
+      font-size: clamp(28px, 4.5vw, 56px);
+      font-weight: bold;
+      line-height: 1.3;
+      letter-spacing: 0.03em;
+      margin-bottom: 40px;
+    }
+
+    .about-body p {
+      font-family: var(--font-midashi);
+      font-size: clamp(13px, 1.6vw, 15px);
+      font-weight: bold;
+      line-height: 2.2;
+      color: #333;
+      margin-bottom: 20px;
+    }
+
+    /* ════════════════════════════════════════
+       COMMERCIAL
+    ════════════════════════════════════════ */
+    .commercial {
+      background: #111;
+      color: var(--white);
+      padding: clamp(60px, 10vw, 120px) clamp(24px, 6vw, 80px);
+    }
+
+    .commercial-inner {
+      max-width: 800px;
+      margin: 0 auto;
+    }
+
+    .section-label {
+      font-family: var(--font-sans);
+      font-size: 10px;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--gray);
+      margin-bottom: 20px;
+    }
+
+    .commercial h2 {
+      font-family: var(--font-midashi);
+      font-size: clamp(24px, 4vw, 48px);
+      font-weight: bold;
+      line-height: 1.3;
+      letter-spacing: 0.03em;
+      margin-bottom: 36px;
+    }
+
+    .commercial-body p {
+      font-family: var(--font-midashi);
+      font-size: clamp(13px, 1.6vw, 15px);
+      line-height: 2.2;
+      color: rgba(255,255,255,0.75);
+      margin-bottom: 20px;
+    }
+
+    .commercial-list {
+      list-style: none;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px 24px;
+      margin-top: 32px;
+    }
+    .commercial-list li {
+      font-family: var(--font-sans);
+      font-size: 12px;
+      letter-spacing: 0.1em;
+      color: rgba(255,255,255,0.6);
+      padding-left: 12px;
+      position: relative;
+    }
+    .commercial-list li::before {
+      content: '—';
+      position: absolute;
+      left: 0;
+      color: rgba(255,255,255,0.3);
+      font-size: 10px;
+    }
+
+    .contact-btn {
+      display: inline-block;
+      margin-top: 40px;
+      padding: 14px 40px;
+      border: 1px solid rgba(255,255,255,0.5);
+      font-family: var(--font-sans);
+      font-size: 11px;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--white);
+      transition: background 0.2s, color 0.2s;
+    }
+    .contact-btn:hover {
+      background: var(--white);
+      color: #111;
+      opacity: 1;
+    }
+
+    /* ════════════════════════════════════════
+       PROFILE
+    ════════════════════════════════════════ */
+    .profile {
+      padding: clamp(60px, 10vw, 120px) clamp(24px, 6vw, 80px);
+      max-width: 900px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: 240px 1fr;
+      gap: 56px;
+      align-items: center;
+    }
+
+    .profile-photo {
+      width: 100%;
+      aspect-ratio: 1 / 1;
+      overflow: hidden;
+      border-radius: 50%;
+      background: #ddd;
+    }
+    .profile-photo img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center top;
+    }
+
+    @media (max-width: 600px) {
+      .profile {
+        grid-template-columns: 1fr;
+        gap: 32px;
+        padding: 60px 32px 80px;
+      }
+      .profile-photo {
+        width: 200px;
+        margin: 0 auto;
+      }
+    }
+
+    .profile-info .section-label { margin-bottom: 16px; }
+
+    .profile-info h2 {
+      font-family: var(--font-midashi);
+      font-size: clamp(20px, 3vw, 36px);
+      font-weight: bold;
+      letter-spacing: 0.03em;
+      margin-bottom: 4px;
+    }
+
+    .profile-info .name-en {
+      font-family: var(--font-sans);
+      font-weight: normal;
+      font-size: 13px;
+      letter-spacing: 0.12em;
+      color: var(--gray);
+      margin-bottom: 28px;
+    }
+
+    .profile-info p {
+      font-family: var(--font-midashi);
+      font-size: clamp(12px, 1.5vw, 14px);
+      line-height: 2.1;
+      color: #444;
+      margin-bottom: 16px;
+    }
+    .social-links {
+      display: flex;
+      gap: 20px;
+      margin-top: 24px;
+    }
+    .social-links a {
+      display: flex;
+      align-items: center;
+      opacity: 0.8;
+      transition: opacity 0.2s;
+    }
+    .social-links a:hover { opacity: 0.4; }
+
+    /* ════════════════════════════════════════
+       FOOTER
+    ════════════════════════════════════════ */
+    footer {
+      padding: 32px 24px;
+      text-align: center;
+      font-family: var(--font-sans);
+      font-size: 10px;
+      letter-spacing: 0.08em;
+      color: var(--gray);
+      border-top: 1px solid #e0e0e0;
+    }
+
+    /* ════════════════════════════════════════
+       RESPONSIVE
+    ════════════════════════════════════════ */
+    @media (max-width: 480px) {
+      .top-bar { font-size: 9px; padding: 14px 16px; }
+      .nav-left { left: 16px; }
+      .hero-title { left: 16px; bottom: 24px; }
+      .hero-copy { display: none; }
+      .service-item { aspect-ratio: 3 / 4; }
+      .service-item.wide { aspect-ratio: 16 / 9; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ── HERO ────────────────────────────── -->
+  <section class="hero-wrap">
+    <img class="slide active" src="hero/hero1.jpg" alt="山﨑滉平 フォトグラファー 大分">
+    <img class="slide"        src="hero/hero2.jpg" alt="山﨑滉平 フォトグラファー 大分">
+    <img class="slide"        src="hero/hero3.jpg" alt="山﨑滉平 フォトグラファー 大分">
+    <img class="slide"        src="hero/hero4.jpg" alt="山﨑滉平 フォトグラファー 大分">
+    <img class="slide"        src="hero/hero5.jpg" alt="山﨑滉平 フォトグラファー 大分">
+    <img class="slide"        src="hero/hero6.jpg" alt="山﨑滉平 フォトグラファー 大分">
+
+    <div class="hero-ui">
+      <div class="top-bar"></div>
+
+      <nav class="nav-left">
+        <div class="nav-works-wrap">
+        <span class="nav-works-toggle" onclick="this.nextElementSibling.classList.toggle('open')">works</span>
+        <div class="nav-works-sub">
+          <a href="memorial.html">memorial</a>
+          <a href="753.html">753</a>
+          <a href="wedding.html">wedding</a>
+          <a href="profile.html">profile</a>
+          <a href="stilllife.html">still life</a>
+          <a href="commercial.html">commercial</a>
+        </div>
+        </div>
+        <a href="movie.html">movie</a>
+        <a href="#about">about</a>
+        <a href="#commercial">commercial</a>
+        <a href="#profile">profile</a>
+        <a href="contact.html">contact</a>
+        <a href="https://www.instagram.com/" target="_blank" rel="noopener" class="ig" aria-label="Instagram">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+            <rect x="2" y="2" width="20" height="20" rx="5" ry="5"/>
+            <circle cx="12" cy="12" r="4"/>
+            <circle cx="17.5" cy="6.5" r="0.5" fill="currentColor" stroke="none"/>
+          </svg>
+        </a>
+      </nav>
+
+      <div class="hero-title">
+        <h1>らしく、<br>しぜんに。</h1>
+      </div>
+
+      <div class="hero-copy">© koheiyamasaki All Rights Reserved.</div>
+    </div>
+  </section>
+
+  <!-- ── ABOUT ─────────────────────────── -->
+  <section id="about" class="about">
+    <h2>そうぞうを、<br>カタチにしよう。</h2>
+    <div class="about-body">
+      <p>あなたらしさを見つける、写真体験。</p>
+      <p>はじまりの日の約束。<br>いつもの笑顔。<br>その手に込める情熱。</p>
+      <p>頭の中で思い描く「想像」と、<br>ここから生み出す「創造」を、<br>ひとつの写真体験にして。</p>
+      <p>まだ見たことのない、<br>「本物の表情」をカタチにします。</p>
+    </div>
+  </section>
+
+  <!-- ── SERVICES ──────────────────────── -->
+  <section id="services" class="services">
+
+    <a href="memorial.html" class="service-item">
+      <img src="thumbs/memorial.jpg" alt="記念写真">
+      <div class="service-label">
+        <span class="en-ghost">MEMORIAL</span>
+        <span class="en">MEMORIAL</span>
+        <div class="bar"></div>
+        <span class="ja">記念写真</span>
+      </div>
+    </a>
+
+    <a href="753.html" class="service-item">
+      <img src="thumbs/753.jpg" alt="七五三">
+      <div class="service-label">
+        <span class="en-ghost">753</span>
+        <span class="en">7 5 3</span>
+        <div class="bar"></div>
+        <span class="ja">七五三</span>
+      </div>
+    </a>
+
+    <a href="wedding.html" class="service-item wide">
+      <img src="thumbs/wedding.jpg" alt="ウェディング">
+      <div class="service-label">
+        <span class="en-ghost">WEDDING</span>
+        <span class="en">WEDDING</span>
+        <div class="bar"></div>
+        <span class="ja">結婚式</span>
+      </div>
+    </a>
+
+    <a href="profile.html" class="service-item">
+      <img src="thumbs/profile_thumb.jpg" alt="プロフィール">
+      <div class="service-label">
+        <span class="en-ghost"></span>
+        <span class="en">PROFILE</span>
+        <div class="bar"></div>
+        <span class="ja">プロフィール</span>
+      </div>
+    </a>
+
+    <a href="stilllife.html" class="service-item">
+      <img src="thumbs/stilllife.jpg" alt="スティルライフ">
+      <div class="service-label">
+        <span class="en-ghost"></span>
+        <span class="en">STILL LIFE</span>
+        <div class="bar"></div>
+        <span class="ja">静物</span>
+      </div>
+    </a>
+
+    <a href="commercial.html" class="service-item wide">
+      <img src="thumbs/commercial.jpg" alt="コマーシャル">
+      <div class="service-label">
+        <span class="en-ghost"></span>
+        <span class="en">COMMERCIAL</span>
+        <div class="bar"></div>
+        <span class="ja">コマーシャル</span>
+      </div>
+    </a>
+
+    <a href="movie.html" class="service-item wide service-movie">
+      <video src="movie.mp4" autoplay muted loop playsinline></video>
+      <div class="service-label">
+        <span class="en-ghost"></span>
+        <span class="en">MOVIE</span>
+        <div class="bar"></div>
+        <span class="ja">動画撮影</span>
+      </div>
+    </a>
+
+  </section>
+
+  <!-- ── COMMERCIAL ─────────────────────── -->
+  <section id="commercial" class="commercial">
+    <div class="commercial-inner">
+      <h2 class="section-label">Commercial</h2>
+      <h2>商業撮影</h2>
+      <div class="commercial-body">
+        <p>飲食店・商品・ブランドのビジュアルを、<br>ストーリーのある写真で届けます。</p>
+        <p>広告・SNS・パンフレット・ECサイトなど、<br>あらゆる用途に対応しています。<br>まずはお気軽にご相談ください。</p>
+      </div>
+      <ul class="commercial-list">
+        <li>料理・フード撮影</li>
+        <li>商品・プロダクト撮影</li>
+        <li>店舗・空間撮影</li>
+        <li>ブランドビジュアル</li>
+        <li>SNS・広告用コンテンツ</li>
+        <li>企業・採用ページ向け</li>
+      </ul>
+      <a href="contact.html" class="contact-btn">Contact</a>
+    </div>
+  </section>
+
+  <!-- ── PROFILE ────────────────────────── -->
+  <section id="profile" class="profile">
+    <div class="profile-photo">
+      <img src="my-profile.jpg" alt="プロフィール写真">
+    </div>
+    <div class="profile-info">
+      <h2 class="section-label">Profile</h2>
+      <h2>山﨑 滉平</h2>
+      <p class="name-en">kohei yamasaki / photographer</p>
+      <p>大分を拠点として、九州を中心に活動するフォトグラファー。</p>
+      <p>記念撮影・ウエディング・七五三・商業撮影を中心に、<br>日常のなかにある「その人らしさ」を、<br>自然なかたちで残すことを大切にしています。</p>
+      <div class="social-links">
+        <a href="https://www.instagram.com/_____ymsk_/" target="_blank" rel="noopener" aria-label="Instagram">
+          <img src="icons/Instagram.png" alt="Instagram" width="28" height="28">
+        </a>
+        <a href="https://youtube.com/@koheiyamasaki7348?si=9EGd5GvFtqgIn_dF" target="_blank" rel="noopener" aria-label="YouTube">
+          <img src="icons/youtube.png" alt="YouTube" width="28" height="28">
+        </a>
+        <a href="https://note.com/____ymsk" target="_blank" rel="noopener" aria-label="note">
+          <img src="icons/note.png" alt="note" width="28" height="28">
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── FOOTER ─────────────────────────── -->
+  <footer>
+    <p>© koheiyamasaki All Rights Reserved.</p>
+  </footer>
+
+  <script>
+    history.scrollRestoration = 'manual';
+    window.scrollTo(0, 0);
+
+
+    const slides = document.querySelectorAll('.slide');
+    let current = 0;
+    setInterval(() => {
+      slides[current].classList.remove('active');
+      current = (current + 1) % slides.length;
+      slides[current].classList.add('active');
+    }, 5000);
+  </script>
+
+</body>
+</html>

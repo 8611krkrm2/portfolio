@@ -1,0 +1,320 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="山﨑滉平によるムービー撮影のポートフォリオ。ブランドや飲食店の映像制作を手がけています。">
+  <title>MOVIE | kohei yamasaki</title>
+  <style>
+    @font-face {
+      font-family: 'MidashiGo-MB31';
+      src: url('fonts/MidashiGo-MB31.otf') format('opentype');
+      font-weight: bold; font-style: normal; font-display: swap;
+    }
+    @font-face {
+      font-family: 'FuturaKY';
+      src: url('fonts/FuturaMedium.otf') format('opentype');
+      font-weight: 400; font-style: normal; font-display: swap;
+    }
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --black: #111111; --gray: #888; --bg: #fafaf8;
+      --font-midashi: 'MidashiGo-MB31', 'A-OTF 見出ゴMB31 Pr6N', sans-serif;
+      --font-sans: 'FuturaKY', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    }
+    body { background: var(--bg); color: var(--black); font-family: var(--font-sans); }
+    a { text-decoration: none; color: inherit; }
+    a:hover { opacity: 0.6; }
+
+    /* HEADER */
+    header {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+      display: flex; justify-content: space-between; align-items: center;
+      padding: 20px 32px;
+      background: rgba(250,250,248,0.92);
+      backdrop-filter: blur(8px);
+      border-bottom: 1px solid rgba(0,0,0,0.06);
+    }
+    .site-name { font-family: var(--font-sans); font-size: 13px; letter-spacing: 0.1em; }
+    .back-link { font-family: var(--font-sans); font-size: 11px; letter-spacing: 0.15em; color: var(--gray); text-transform: uppercase; }
+
+    /* PAGE TITLE */
+    .page-title {
+      padding: 120px 32px 48px;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+    .page-title .category { font-family: var(--font-sans); font-size: 11px; letter-spacing: 0.2em; color: var(--gray); margin-bottom: 12px; text-transform: uppercase; }
+    .page-title h1 { font-family: var(--font-sans); font-size: clamp(32px, 6vw, 72px); font-weight: 500; letter-spacing: 0.08em; }
+    .page-title .ja { font-family: var(--font-midashi); font-size: clamp(13px, 1.5vw, 16px); color: var(--gray); margin-top: 8px; }
+
+    /* VIDEO GRID */
+    .video-grid {
+      max-width: 100%;
+      background: #e8e8e4;
+      padding: 40px 32px 120px;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 40px 24px;
+    }
+    .video-item {
+      cursor: pointer;
+    }
+    .video-thumb {
+      position: relative;
+      width: 100%;
+      aspect-ratio: 16 / 9;
+      background: #111;
+      overflow: hidden;
+      border-radius: 8px;
+    }
+    .video-thumb img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+      transition: transform 0.5s ease, opacity 0.3s ease;
+    }
+
+    /* 4列縦動画グリッド */
+    .video-row-4 {
+      grid-column: 1 / -1;
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 24px;
+    }
+    .video-row-4 .video-thumb {
+      aspect-ratio: 9 / 16;
+    }
+
+    @media (max-width: 600px) {
+      .video-row-4 { grid-template-columns: repeat(2, 1fr); gap: 12px; }
+    }
+    .video-item:hover .video-thumb img { transform: scale(1.03); }
+    .video-thumb video {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: none;
+    }
+    .video-thumb.playing img { opacity: 0; }
+    .video-thumb.playing video { display: block; }
+
+    /* play icon */
+    .video-thumb .play-icon {
+      position: absolute;
+      inset: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      opacity: 0;
+      transition: opacity 0.2s;
+    }
+    .video-item:hover .play-icon { opacity: 1; }
+    .video-thumb.playing .play-icon { display: none; }
+    .play-icon svg { width: 48px; height: 48px; filter: drop-shadow(0 2px 8px rgba(0,0,0,0.4)); }
+
+    .video-info {
+      margin-top: 12px;
+    }
+    .video-info .en {
+      font-family: var(--font-sans);
+      font-size: 13px;
+      letter-spacing: 0.08em;
+      color: var(--black);
+    }
+
+    /* MODAL */
+    .modal {
+      display: none;
+      position: fixed;
+      inset: 0;
+      z-index: 300;
+      background: rgba(0,0,0,0.92);
+      align-items: center;
+      justify-content: center;
+    }
+    .modal.open { display: flex; }
+    .modal-inner {
+      position: relative;
+      width: 90vw;
+      max-width: 1000px;
+    }
+    .modal-inner video {
+      width: 100%;
+      display: block;
+      max-height: 85vh;
+      object-fit: contain;
+    }
+    .modal-inner iframe {
+      width: 100%;
+      aspect-ratio: 16 / 9;
+      display: block;
+      border: none;
+    }
+    .modal-close {
+      position: absolute;
+      top: -40px;
+      right: 0;
+      color: #fff;
+      font-family: var(--font-sans);
+      font-size: 11px;
+      letter-spacing: 0.15em;
+      cursor: pointer;
+      background: none;
+      border: none;
+      opacity: 0.7;
+    }
+    .modal-close:hover { opacity: 1; }
+
+    @media (max-width: 600px) {
+      header { padding: 16px 20px; }
+      .page-title { padding: 100px 20px 32px; }
+      .video-grid { grid-template-columns: 1fr; padding: 0 20px 80px; gap: 24px; }
+      .video-row-4 { grid-template-columns: repeat(2, 1fr); gap: 12px; }
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <a href="index.html" class="site-name">kohei yamasaki</a>
+    <a href="index.html" class="back-link">← Back</a>
+  </header>
+
+  <div class="page-title">
+    <p class="category">Works</p>
+    <h1>MOVIE</h1>
+    <p class="ja">動画撮影</p>
+  </div>
+
+  <!-- Modal -->
+  <div class="modal" id="modal">
+    <div class="modal-inner">
+      <button class="modal-close" id="modalClose">CLOSE ×</button>
+      <video id="modalVideo" controls playsinline></video>
+      <iframe id="modalYoutube" allowfullscreen allow="autoplay" style="display:none"></iframe>
+    </div>
+  </div>
+
+  <div class="video-grid">
+
+    <div class="video-item" onclick="openModal('movie/260603_SZU_3.mp4', 'movie/thumb8.jpg')">
+      <div class="video-thumb">
+        <img src="movie/thumb8.jpg" alt="baby">
+        <div class="play-icon"><svg viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg"><circle cx="24" cy="24" r="23" stroke="white" stroke-width="1.5"/><polygon points="19,14 38,24 19,34" fill="white"/></svg></div>
+      </div>
+      <div class="video-info"><span class="en">baby</span></div>
+    </div>
+
+    <div class="video-item" onclick="openModal('movie/260604_CHAORAS%5Bnew%5D.mp4', 'movie/thumb6.jpg')">
+      <div class="video-thumb">
+        <img src="movie/thumb6.jpg" alt="CHAORAS">
+        <div class="play-icon"><svg viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg"><circle cx="24" cy="24" r="23" stroke="white" stroke-width="1.5"/><polygon points="19,14 38,24 19,34" fill="white"/></svg></div>
+      </div>
+      <div class="video-info"><span class="en">CHAORAS</span></div>
+    </div>
+
+    <div class="video-item" onclick="openModal('youtube:79zB3CivS0M', 'movie/thumb1.jpg')">
+      <div class="video-thumb">
+        <img src="movie/thumb1.jpg" alt="穀雨">
+        <div class="play-icon"><svg viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg"><circle cx="24" cy="24" r="23" stroke="white" stroke-width="1.5"/><polygon points="19,14 38,24 19,34" fill="white"/></svg></div>
+      </div>
+      <div class="video-info"><span class="en">穀雨</span></div>
+    </div>
+
+    <div class="video-item" onclick="openModal('movie/251010_KKU_4.mp4', 'movie/thumb2.jpg')">
+      <div class="video-thumb">
+        <img src="movie/thumb2.jpg" alt="穀雨">
+        <div class="play-icon"><svg viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg"><circle cx="24" cy="24" r="23" stroke="white" stroke-width="1.5"/><polygon points="19,14 38,24 19,34" fill="white"/></svg></div>
+      </div>
+      <div class="video-info"><span class="en">穀雨</span></div>
+    </div>
+
+    <div class="video-row-4">
+      <div class="video-item" onclick="openModal('movie/251031_CHA.mp4', 'movie/thumb3.jpg')">
+        <div class="video-thumb">
+          <img src="movie/thumb3.jpg" alt="CHAORAS">
+          <div class="play-icon"><svg viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg"><circle cx="24" cy="24" r="23" stroke="white" stroke-width="1.5"/><polygon points="19,14 38,24 19,34" fill="white"/></svg></div>
+        </div>
+        <div class="video-info"><span class="en">CHAORAS</span></div>
+      </div>
+      <div class="video-item" onclick="openModal('movie/02.MP4', 'movie/th_02.jpg')">
+        <div class="video-thumb">
+          <img src="movie/th_02.jpg" alt="CHAORAS">
+          <div class="play-icon"><svg viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg"><circle cx="24" cy="24" r="23" stroke="white" stroke-width="1.5"/><polygon points="19,14 38,24 19,34" fill="white"/></svg></div>
+        </div>
+        <div class="video-info"><span class="en">CHAORAS</span></div>
+      </div>
+      <div class="video-item" onclick="openModal('movie/240229_VOLCANCITOS.MP4', 'movie/th_volcancitos.jpg')">
+        <div class="video-thumb">
+          <img src="movie/th_volcancitos.jpg" alt="VOLCANCITOS">
+          <div class="play-icon"><svg viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg"><circle cx="24" cy="24" r="23" stroke="white" stroke-width="1.5"/><polygon points="19,14 38,24 19,34" fill="white"/></svg></div>
+        </div>
+        <div class="video-info"><span class="en">VOLCANCITOS</span></div>
+      </div>
+      <div class="video-item" onclick="openModal('movie/240302_El%20Cambarache.MP4', 'movie/th_cambarache.jpg')">
+        <div class="video-thumb">
+          <img src="movie/th_cambarache.jpg" alt="EL Cambarache">
+          <div class="play-icon"><svg viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg"><circle cx="24" cy="24" r="23" stroke="white" stroke-width="1.5"/><polygon points="19,14 38,24 19,34" fill="white"/></svg></div>
+        </div>
+        <div class="video-info"><span class="en">EL Cambarache</span></div>
+      </div>
+    </div>
+
+    <div class="video-item" onclick="openModal('movie/240617_KTK_2.MP4', 'movie/th_ktk.jpg')">
+      <div class="video-thumb">
+        <img src="movie/th_ktk.jpg" alt="UCA">
+        <div class="play-icon"><svg viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg"><circle cx="24" cy="24" r="23" stroke="white" stroke-width="1.5"/><polygon points="19,14 38,24 19,34" fill="white"/></svg></div>
+      </div>
+      <div class="video-info"><span class="en">UCA</span></div>
+    </div>
+
+    <div class="video-item" onclick="openModal('movie/241021_SOUSOU.MP4', 'movie/th_sousou.jpg')">
+      <div class="video-thumb">
+        <img src="movie/th_sousou.jpg" alt="SOUSOU">
+        <div class="play-icon"><svg viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg"><circle cx="24" cy="24" r="23" stroke="white" stroke-width="1.5"/><polygon points="19,14 38,24 19,34" fill="white"/></svg></div>
+      </div>
+      <div class="video-info"><span class="en">SOUSOU</span></div>
+    </div>
+
+  </div>
+
+  <script>
+    const modal = document.getElementById('modal');
+    const modalVideo = document.getElementById('modalVideo');
+    const modalYoutube = document.getElementById('modalYoutube');
+
+    function closeModal() {
+      modal.classList.remove('open');
+      modalVideo.pause();
+      modalVideo.src = '';
+      modalVideo.style.display = '';
+      modalYoutube.src = '';
+      modalYoutube.style.display = 'none';
+    }
+
+    function openModal(src, poster) {
+      if (src.startsWith('youtube:')) {
+        const videoId = src.replace('youtube:', '');
+        modalVideo.style.display = 'none';
+        modalYoutube.style.display = 'block';
+        modalYoutube.src = 'https://www.youtube.com/embed/' + videoId + '?autoplay=1';
+      } else {
+        modalYoutube.style.display = 'none';
+        modalVideo.style.display = 'block';
+        modalVideo.src = src;
+        modalVideo.poster = poster;
+        modalVideo.play();
+      }
+      modal.classList.add('open');
+    }
+
+    document.getElementById('modalClose').addEventListener('click', closeModal);
+    modal.addEventListener('click', (e) => { if (e.target === modal) closeModal(); });
+  </script>
+
+</body>
+</html>

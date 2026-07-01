@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="山﨑滉平によるプロフィール撮影のポートフォリオ。ビジネスや個人のプロフィール写真を幅広く対応。">
+  <title>PROFILE | kohei yamasaki</title>
+  <style>
+    @font-face { font-family: 'FuturaKY'; src: url('fonts/FuturaMedium.otf') format('opentype'); font-weight: 400; font-style: normal; font-display: swap; }
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root { --black: #111111; --gray: #888; --bg: #fafaf8; --font-sans: 'FuturaKY', 'Helvetica Neue', Helvetica, Arial, sans-serif; }
+    body { background: var(--bg); color: var(--black); font-family: var(--font-sans); }
+    a { text-decoration: none; color: inherit; } a:hover { opacity: 0.6; }
+    header { position: fixed; top: 0; left: 0; right: 0; z-index: 100; display: flex; justify-content: space-between; align-items: center; padding: 20px 32px; background: rgba(250,250,248,0.92); backdrop-filter: blur(8px); border-bottom: 1px solid rgba(0,0,0,0.06); }
+    .site-name { font-size: 13px; letter-spacing: 0.1em; }
+    .back-link { font-size: 11px; letter-spacing: 0.15em; color: var(--gray); text-transform: uppercase; }
+    .page-title { padding: 120px 32px 32px; }
+    .page-title .category { font-size: 11px; letter-spacing: 0.2em; color: var(--gray); margin-bottom: 12px; text-transform: uppercase; }
+    .page-title h1 { font-size: clamp(32px, 6vw, 72px); font-weight: 500; letter-spacing: 0.08em; }
+
+    .photo-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 4px;
+      padding: 4px 0 80px;
+    }
+    .photo-item {
+      aspect-ratio: 1 / 1;
+      overflow: hidden;
+    }
+    .photo-item img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+      transition: transform 0.4s ease;
+    }
+    .photo-item:hover img { transform: scale(1.05); }
+
+    @media (max-width: 600px) {
+      header { padding: 16px 20px; }
+      .page-title { padding: 100px 20px 24px; }
+      .photo-grid { grid-template-columns: repeat(3, 1fr); gap: 2px; }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <a href="index.html" class="site-name">kohei yamasaki</a>
+    <a href="index.html" class="back-link">← Back</a>
+  </header>
+
+  <div class="page-title">
+    <p class="category">Works</p>
+    <h1>PROFILE</h1>
+  </div>
+
+  <div class="photo-grid">
+    <!-- GRAY 18枚 (mixed order) -->
+    <div class="photo-item"><img src="profile/gray/240503_HJR%2015.jpg" alt="山﨑滉平 プロフィール撮影"></div>
+    <div class="photo-item"><img src="profile/gray/14.jpg" alt="山﨑滉平 プロフィール撮影"></div>
+    <div class="photo-item"><img src="profile/gray/20230523_HJS%2015.jpg" alt="山﨑滉平 プロフィール撮影"></div>
+    <div class="photo-item"><img src="profile/gray/240919_HJR%2033.jpg" alt="山﨑滉平 プロフィール撮影"></div>
+    <div class="photo-item"><img src="profile/gray/20230412_HJS7%208.jpg" alt="山﨑滉平 プロフィール撮影"></div>
+    <div class="photo-item"><img src="profile/gray/%E3%82%B9%E3%82%AF%E3%83%AA%E3%83%BC%E3%83%B3%E3%82%B7%E3%83%A7%E3%83%83%E3%83%88%200008-07-01%2015.24.33.jpg" alt="山﨑滉平 プロフィール撮影"></div>
+    <div class="photo-item"><img src="profile/gray/230904_SMPLE%2082.jpg" alt="山﨑滉平 プロフィール撮影"></div>
+    <div class="photo-item"><img src="profile/gray/20230523_HJS1%209.jpg" alt="山﨑滉平 プロフィール撮影"></div>
+    <div class="photo-item"><img src="profile/gray/20230412_HJS9%2011.jpg" alt="山﨑滉平 プロフィール撮影"></div>
+    <div class="photo-item"><img src="profile/gray/20230523_HJS%2019.jpg" alt="山﨑滉平 プロフィール撮影"></div>
+    <div class="photo-item"><img src="profile/gray/%E3%82%B9%E3%82%AF%E3%83%AA%E3%83%BC%E3%83%B3%E3%82%B7%E3%83%A7%E3%83%83%E3%83%88%200008-07-01%2015.24.38.jpg" alt="山﨑滉平 プロフィール撮影"></div>
+    <div class="photo-item"><img src="profile/gray/4AF68D89-32B4-4B3C-9534-FD2078875EDE.jpg" alt="山﨑滉平 プロフィール撮影"></div>
+    <div class="photo-item"><img src="profile/gray/20230313_HJS%20101.jpg" alt="山﨑滉平 プロフィール撮影"></div>
+    <div class="photo-item"><img src="profile/gray/20230523_HJS1%2012.jpg" alt="山﨑滉平 プロフィール撮影"></div>
+    <div class="photo-item"><img src="profile/gray/20220923_SSS%20244.jpg" alt="山﨑滉平 プロフィール撮影"></div>
+    <div class="photo-item"><img src="profile/gray/D3B59651-B5CF-4901-8FB5-E90B0625C668.jpg" alt="山﨑滉平 プロフィール撮影"></div>
+    <div class="photo-item"><img src="profile/gray/20221030_SSS%201.jpg" alt="山﨑滉平 プロフィール撮影"></div>
+    <div class="photo-item"><img src="profile/gray/13455206-070F-48B4-8731-36F8FF019BF2.jpg" alt="山﨑滉平 プロフィール撮影"></div>
+    <!-- COLOR + WHITE 16枚 mixed -->
+    <div class="photo-item"><img src="profile/color/240317_SKOOL%2020.jpg" alt="山﨑滉平 プロフィール撮影"></div>
+    <div class="photo-item"><img src="profile/white/240228_SKOOL%201.jpg" alt="山﨑滉平 プロフィール撮影"></div>
+    <div class="photo-item"><img src="profile/color/240317_SKOOL%2047.jpg" alt="山﨑滉平 プロフィール撮影"></div>
+    <div class="photo-item"><img src="profile/white/240123_SKOOL%202.jpg" alt="山﨑滉平 プロフィール撮影"></div>
+    <div class="photo-item"><img src="profile/color/240319_SKOOL%20110.jpg" alt="山﨑滉平 プロフィール撮影"></div>
+    <div class="photo-item"><img src="profile/color/240319_SKOOL%2087.jpg" alt="山﨑滉平 プロフィール撮影"></div>
+    <div class="photo-item"><img src="profile/white/240319_SKOOL%20111.jpg" alt="山﨑滉平 プロフィール撮影"></div>
+    <div class="photo-item"><img src="profile/color/24031_SKOOL.jpg" alt="山﨑滉平 プロフィール撮影"></div>
+    <div class="photo-item"><img src="profile/white/240321_SKOOL.jpg" alt="山﨑滉平 プロフィール撮影"></div>
+    <div class="photo-item"><img src="profile/color/240322_SKOOL%200.jpg" alt="山﨑滉平 プロフィール撮影"></div>
+    <div class="photo-item"><img src="profile/white/%E3%82%B9%E3%82%AF%E3%83%AA%E3%83%BC%E3%83%B3%E3%82%B7%E3%83%A7%E3%83%83%E3%83%88%200008-07-01%2015.35.36.jpg" alt="山﨑滉平 プロフィール撮影"></div>
+    <div class="photo-item"><img src="profile/color/240325_SKOOL.jpg" alt="山﨑滉平 プロフィール撮影"></div>
+    <div class="photo-item"><img src="profile/color/240326_SKOOL.jpg" alt="山﨑滉平 プロフィール撮影"></div>
+    <div class="photo-item"><img src="profile/white/240326_SKOOL(1).jpg" alt="山﨑滉平 プロフィール撮影"></div>
+    <div class="photo-item"><img src="profile/color/241123_HJR%2028.jpg" alt="山﨑滉平 プロフィール撮影"></div>
+    <div class="photo-item"><img src="profile/color/241123_HJR%209.jpg" alt="山﨑滉平 プロフィール撮影"></div>
+  </div>
+
+</body>
+</html>

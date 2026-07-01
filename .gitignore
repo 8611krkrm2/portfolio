@@ -1,0 +1,7 @@
+movie/*.mp4
+movie/*.MP4
+movie/*.mov
+movie/*.MOV
+movie.mp4
+.DS_Store
+**/.DS_Store
