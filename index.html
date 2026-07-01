@@ -422,9 +422,11 @@
       font-weight: normal;
       font-size: 13px;
       letter-spacing: 0.12em;
-      color: var(--gray);
+      color: var(--black);
       margin-bottom: 28px;
     }
+    .profile-info .section-label,
+    .profile-info .name-en { color: var(--black); }
 
     .profile-info p {
       font-family: var(--font-midashi);
@@ -635,9 +637,10 @@
     </div>
     <div class="profile-info">
       <h2 class="section-label">Profile</h2>
-      <div style="display:flex; align-items:baseline; gap:16px; flex-wrap:wrap; margin-bottom:4px;">
+      <div style="display:flex; align-items:baseline; gap:16px; flex-wrap:wrap; margin-bottom:8px;">
         <h2 style="margin-bottom:0;">山﨑 滉平</h2>
-        <span class="name-en" style="margin-bottom:0;">kohei yamasaki</span>
+        <span style="color:var(--black); font-size:clamp(20px,3vw,36px); font-weight:300;">｜</span>
+        <span style="font-family:var(--font-sans); font-size:clamp(20px,3vw,36px); font-weight:400; letter-spacing:0.08em; color:var(--black);">kohei yamasaki</span>
       </div>
       <p class="name-en">photographer</p>
       <p>大分を拠点として、九州を中心に活動するフォトグラファー。</p>
