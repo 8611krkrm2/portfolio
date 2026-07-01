@@ -444,6 +444,7 @@
       transition: opacity 0.2s;
     }
     .social-links a:hover { opacity: 0.4; }
+    .social-links img { width: 28px; height: 28px; }
 
     /* ════════════════════════════════════════
        FOOTER
@@ -466,8 +467,10 @@
       .nav-left { left: 16px; }
       .hero-title { left: 16px; bottom: 24px; }
       .hero-copy { display: none; }
-      .service-item { aspect-ratio: 3 / 4; }
-      .service-item.wide { aspect-ratio: 16 / 9; }
+      .services { grid-template-columns: 1fr; }
+      .service-item { aspect-ratio: 4 / 3; }
+      .service-item.wide { grid-column: 1; aspect-ratio: 4 / 3; }
+      .service-label .en { font-size: 20px; }
     }
   </style>
 </head>
