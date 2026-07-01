@@ -254,7 +254,7 @@
       margin: 10px 0;
     }
     .service-label .ja {
-      font-family: var(--font-sans);
+      font-family: var(--font-midashi);
       font-size: clamp(10px, 1.5vw, 13px);
       letter-spacing: 0.2em;
     }
@@ -303,7 +303,7 @@
     .section-label {
       font-family: var(--font-sans);
       font-size: 10px;
-      letter-spacing: 0.2em;
+      letter-spacing: 0.4em;
       text-transform: uppercase;
       color: var(--gray);
       margin-bottom: 20px;
@@ -406,7 +406,8 @@
       }
     }
 
-    .profile-info .section-label { margin-bottom: 16px; }
+    .profile-info .section-label { margin-bottom: 16px; font-family: var(--font-sans); }
+    .commercial .section-label { font-family: var(--font-sans); }
 
     .profile-info h2 {
       font-family: var(--font-midashi);
@@ -634,8 +635,11 @@
     </div>
     <div class="profile-info">
       <h2 class="section-label">Profile</h2>
-      <h2>山﨑 滉平</h2>
-      <p class="name-en">kohei yamasaki / photographer</p>
+      <div style="display:flex; align-items:baseline; gap:16px; flex-wrap:wrap; margin-bottom:4px;">
+        <h2 style="margin-bottom:0;">山﨑 滉平</h2>
+        <span class="name-en" style="margin-bottom:0;">kohei yamasaki</span>
+      </div>
+      <p class="name-en">photographer</p>
       <p>大分を拠点として、九州を中心に活動するフォトグラファー。</p>
       <p>記念撮影・ウエディング・七五三・商業撮影を中心に、<br>日常のなかにある「その人らしさ」を、<br>自然なかたちで残すことを大切にしています。</p>
       <div class="social-links">
