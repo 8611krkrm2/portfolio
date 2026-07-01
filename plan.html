@@ -1,0 +1,381 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="山﨑滉平の撮影プラン・料金一覧。撮影体験イベント・記念写真・フォトウェディングの3プランをご用意しています。">
+  <title>PLAN | kohei yamasaki</title>
+  <style>
+    @font-face {
+      font-family: 'MidashiGo-MB31';
+      src: url('fonts/MidashiGo-MB31.otf') format('opentype');
+      font-weight: bold; font-style: normal; font-display: swap;
+    }
+    @font-face {
+      font-family: 'FuturaKY';
+      src: url('fonts/FuturaMedium.otf') format('opentype');
+      font-weight: 400; font-style: normal; font-display: swap;
+    }
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --black: #111111; --gray: #888; --bg: #fafaf8;
+      --font-midashi: 'MidashiGo-MB31', 'A-OTF 見出ゴMB31 Pr6N', sans-serif;
+      --font-sans: 'FuturaKY', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    }
+    body { background: var(--bg); color: var(--black); font-family: var(--font-sans); }
+    a { text-decoration: none; color: inherit; }
+    a:hover { opacity: 0.6; }
+
+    header {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+      display: flex; justify-content: space-between; align-items: center;
+      padding: 20px 32px;
+      background: rgba(250,250,248,0.92);
+      backdrop-filter: blur(8px);
+      border-bottom: 1px solid rgba(0,0,0,0.06);
+    }
+    .site-name { font-family: var(--font-sans); font-size: 13px; letter-spacing: 0.1em; }
+    .back-link { font-family: var(--font-sans); font-size: 11px; letter-spacing: 0.15em; color: var(--gray); text-transform: uppercase; }
+
+    .page-header {
+      padding: 140px 32px 60px;
+      text-align: center;
+    }
+    .page-header h1 {
+      font-family: var(--font-sans);
+      font-size: clamp(32px, 6vw, 64px);
+      font-weight: 400;
+      letter-spacing: 0.4em;
+      margin-bottom: 24px;
+    }
+    .page-header .lead {
+      font-family: var(--font-midashi);
+      font-size: clamp(12px, 1.5vw, 14px);
+      color: #444;
+      letter-spacing: 0.05em;
+      line-height: 1.8;
+    }
+
+    /* PLAN CARDS */
+    .plans {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 40px 32px 80px;
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 40px;
+    }
+
+    .plan-card {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+    }
+
+    .plan-photo {
+      width: 100%;
+      aspect-ratio: 4 / 3;
+      overflow: hidden;
+      margin-bottom: 28px;
+    }
+    .plan-photo img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+      transition: transform 0.5s ease;
+    }
+    .plan-card:hover .plan-photo img { transform: scale(1.03); }
+
+    .plan-name {
+      font-family: var(--font-midashi);
+      font-size: clamp(15px, 1.5vw, 16px);
+      letter-spacing: 0.15em;
+      color: #444;
+      margin-bottom: 28px;
+    }
+
+    .plan-time {
+      font-family: var(--font-sans);
+      font-size: clamp(52px, 5vw, 64px);
+      font-weight: 400;
+      letter-spacing: 0.02em;
+      line-height: 1;
+      margin-bottom: 28px;
+    }
+    .plan-time span {
+      font-size: 0.4em;
+      letter-spacing: 0.1em;
+      vertical-align: baseline;
+    }
+
+    .plan-price {
+      font-family: var(--font-sans);
+      font-size: clamp(26px, 2.5vw, 32px);
+      font-weight: 400;
+      letter-spacing: 0.05em;
+      margin-bottom: 28px;
+    }
+    .plan-price span {
+      font-size: 0.6em;
+      letter-spacing: 0.1em;
+    }
+
+    .plan-desc {
+      font-family: var(--font-midashi);
+      font-size: clamp(14px, 1.3vw, 15px);
+      color: #666;
+      line-height: 1.9;
+      margin-bottom: 40px;
+    }
+
+    .plan-divider {
+      display: none;
+    }
+
+    .plan-detail {
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+      gap: 64px;
+    }
+
+    .detail-row {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 10px;
+    }
+    .detail-label {
+      font-family: var(--font-midashi);
+      font-size: 11px;
+      color: var(--gray);
+      letter-spacing: 0.1em;
+    }
+    .detail-value {
+      font-family: var(--font-sans);
+      font-size: clamp(28px, 3.5vw, 44px);
+      font-weight: 400;
+      letter-spacing: 0.02em;
+      line-height: 1;
+    }
+    .detail-value span {
+      font-family: var(--font-midashi);
+      font-size: 0.45em;
+      letter-spacing: 0.05em;
+    }
+    .detail-value.text-val {
+      font-family: var(--font-midashi);
+      font-weight: bold;
+      font-size: clamp(20px, 2.5vw, 32px);
+    }
+
+    /* NOTE */
+    .note {
+      text-align: center;
+      padding: 0 32px 60px;
+    }
+    .note p {
+      font-family: var(--font-midashi);
+      font-size: clamp(11px, 1.3vw, 13px);
+      color: #666;
+      line-height: 2;
+    }
+
+    /* BOTTOM SECTIONS */
+    .bottom-sections {
+      background: var(--bg);
+      padding: 80px 32px;
+    }
+    .bottom-sections-inner {
+      max-width: 1100px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 48px;
+      border-top: 1px solid #e0e0e0;
+      padding-top: 60px;
+    }
+
+    .bottom-card { padding: 0; }
+
+    .bottom-card-title {
+      font-family: var(--font-midashi);
+      font-size: clamp(14px, 1.6vw, 18px);
+      font-weight: bold;
+      letter-spacing: 0.1em;
+      color: #fff;
+      background: var(--black);
+      display: inline;
+      padding: 2px 6px;
+      line-height: 1.8;
+      margin-bottom: 20px;
+    }
+    .bottom-card-title-wrap {
+      margin-bottom: 20px;
+    }
+
+    .bottom-card p {
+      font-family: var(--font-midashi);
+      font-size: clamp(12px, 1.4vw, 13px);
+      color: #555;
+      line-height: 2.2;
+      letter-spacing: 0.03em;
+    }
+    .bottom-card-photo {
+      margin-top: 24px;
+      width: 100%;
+      aspect-ratio: 16 / 9;
+      overflow: hidden;
+    }
+    .bottom-card-photo img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+      transition: transform 0.5s ease;
+    }
+    .bottom-card:hover .bottom-card-photo img { transform: scale(1.03); }
+
+    /* CONTACT CTA */
+    .contact-cta {
+      background: var(--bg);
+      text-align: center;
+      padding: 0 32px 80px;
+    }
+    .contact-btn {
+      display: inline-block;
+      font-family: var(--font-midashi);
+      font-size: 13px;
+      letter-spacing: 0.2em;
+      color: var(--black);
+      border: 1px solid var(--black);
+      padding: 16px 48px;
+      transition: background 0.2s, color 0.2s;
+    }
+    .contact-btn:hover { background: var(--black); color: #fff; opacity: 1; }
+
+    @media (max-width: 768px) {
+      header { padding: 16px 20px; }
+      .page-header { padding: 110px 20px 40px; }
+      .plans { grid-template-columns: 1fr; padding: 20px 20px 60px; gap: 60px; }
+      .plan-photo { aspect-ratio: 3 / 2; }
+      .bottom-sections { padding: 40px 20px; }
+      .bottom-sections-inner { grid-template-columns: 1fr; gap: 40px; border-top: none; padding-top: 0; }
+      .note { padding: 0 20px 40px; }
+      .contact-cta { padding: 0 20px 60px; }
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <a href="index.html" class="site-name">kohei yamasaki</a>
+    <a href="index.html" class="back-link">← Back</a>
+  </header>
+
+  <div class="page-header">
+    <h1>PLAN</h1>
+    <p class="lead">お客様の用途、ご要望に応じて、ご予約の際に撮影プランをお選びいただけます。</p>
+  </div>
+
+  <div class="plans">
+
+    <!-- 撮影体験イベント -->
+    <div class="plan-card">
+      <div class="plan-photo">
+        <img src="plan/1.jpg" alt="撮影体験イベント">
+      </div>
+      <p class="plan-name">撮影体験イベント！</p>
+      <div class="plan-time">20<span>分</span></div>
+      <div class="plan-price">9,900<span>円</span></div>
+      <p class="plan-desc">はじめての方におすすめ<br>手軽に思い出を残したい方へ</p>
+      <div class="plan-divider"></div>
+      <div class="plan-detail">
+        <div class="detail-row">
+          <span class="detail-label">データ</span>
+          <span class="detail-value">2<span>点</span></span>
+        </div>
+        <div class="detail-row">
+          <span class="detail-label">プリント＋額</span>
+          <span class="detail-value text-val">購入可</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- 記念写真 -->
+    <div class="plan-card">
+      <div class="plan-photo">
+        <img src="plan/2.jpg" alt="記念写真">
+      </div>
+      <p class="plan-name">記念写真</p>
+      <div class="plan-time">60<span>分</span></div>
+      <div class="plan-price">33,000<span>円</span></div>
+      <p class="plan-desc">ゆっくり撮影をたのしみたい<br>今らしい姿をもっと撮影したい</p>
+      <div class="plan-divider"></div>
+      <div class="plan-detail">
+        <div class="detail-row">
+          <span class="detail-label">データ</span>
+          <span class="detail-value">30<span>点</span></span>
+        </div>
+        <div class="detail-row">
+          <span class="detail-label">プリント＋額</span>
+          <span class="detail-value">1<span>点</span></span>
+        </div>
+      </div>
+    </div>
+
+    <!-- フォトウェディング -->
+    <div class="plan-card">
+      <div class="plan-photo">
+        <img src="plan/3.jpg" alt="フォトウェディング">
+      </div>
+      <p class="plan-name">フォトウェディング</p>
+      <div class="plan-time">90<span>分</span></div>
+      <div class="plan-price">66,000<span>円</span></div>
+      <p class="plan-desc">自然なおふたりを、<br>最高の写真でのこします</p>
+      <div class="plan-divider"></div>
+      <div class="plan-detail">
+        <div class="detail-row">
+          <span class="detail-label">データ</span>
+          <span class="detail-value text-val">全て</span>
+        </div>
+        <div class="detail-row">
+          <span class="detail-label">プリント＋額</span>
+          <span class="detail-value">1<span>点</span></span>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <div class="note">
+    <p>当館では衣装レンタルはございません。<br>お客様ご自身でのご準備をお願いいたします。</p>
+  </div>
+
+  <div class="bottom-sections">
+    <div class="bottom-sections-inner">
+      <div class="bottom-card">
+        <div class="bottom-card-title-wrap"><span class="bottom-card-title">商業撮影</span></div>
+        <p>商品にも、空間にも、人にも自然な表情があります。<br>お客様に伝えたいものを伝える。<br>みなさまのビジネスを写真で表現します。<br>まずはお気軽にご相談ください。</p>
+        <div class="bottom-card-photo">
+          <img src="plan/stilllife.jpg" alt="商業撮影">
+        </div>
+      </div>
+      <div class="bottom-card">
+        <div class="bottom-card-title-wrap"><span class="bottom-card-title">映像制作</span></div>
+        <p>動くから、伝わることがあります。空間の空気、人の間、<br>映像は、写真では届かない時間を残します。<br>ブランドムービー、記録映像、SNS向けショートフィルムなど<br>まずはお気軽にご相談ください。</p>
+        <div class="bottom-card-photo">
+          <img src="plan/movie.jpg" alt="映像制作">
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="contact-cta">
+    <a href="contact.html" class="contact-btn">お問い合わせはこちら</a>
+  </div>
+
+</body>
+</html>
